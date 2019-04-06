@@ -1,4 +1,4 @@
-put into ~/.minetest/clientmods
+make sure the mod is installed at ~/.minetest/clientmods/chatlog
 
 make sure ~/.minetest/clientmods/mods.conf exists and contains:
 
