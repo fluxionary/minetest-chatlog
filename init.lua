@@ -6,6 +6,8 @@ end
 
 log('action', 'CSM loading...')
 
+local LOG_LEVEL = 'action'
+
 local server_info = minetest.get_server_info()
 local server_id = server_info.address .. ':' .. server_info.port
 local my_name = ''
@@ -28,9 +30,20 @@ local function safe(func)
     return f
 end
 
-
+local set_my_name_tries = 0
 local set_my_name = safe(function()
-    my_name = minetest.localplayer:get_name()
+    if minetest.localplayer then
+        my_name = minetest.localplayer:get_name()
+    end
+
+    if set_my_name_tries < 20 then
+        set_my_name_tries = set_my_name_tries + 1
+    else
+        my_name = ''
+        log('warning', 'could not set name!')
+        return
+    end
+
     if my_name == nil or my_name == '' then
         minetest.after(1, set_my_name)
     end
@@ -50,7 +63,7 @@ if register_on_send then
     register_on_send(safe(function(message)
         local msg = minetest.strip_colors(message)
         if msg ~= '' then
-            log('action', ('%s@%s [sent] %s'):format(my_name, server_id, msg))
+            log(LOG_LEVEL, ('%s@%s [sent] %s'):format(my_name, server_id, msg))
         end
     end))
 else
@@ -61,7 +74,7 @@ if register_on_receive then
     register_on_receive(safe(function(message)
         local msg = minetest.strip_colors(message)
         if msg ~= '' then
-            log('action', ('%s@%s %s'):format(my_name, server_id, msg))
+            log(LOG_LEVEL, ('%s@%s %s'):format(my_name, server_id, msg))
         end
     end))
 else
