@@ -55,7 +55,7 @@ if minetest.register_on_connect then
 elseif minetest.register_on_mods_loaded then
     minetest.register_on_mods_loaded(set_my_name)
 else
-    set_my_name()
+    minetest.after(1, set_my_name)
 end
 
 
