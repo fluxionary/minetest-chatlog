@@ -30,7 +30,6 @@ local function safe(func)
     return f
 end
 
-local set_my_name_tries = 0
 local set_my_name = safe(function()
     if minetest.localplayer then
         my_name = minetest.localplayer:get_name()
@@ -42,10 +41,6 @@ local set_my_name = safe(function()
         my_name = ''
         log('warning', 'could not set name!')
         return
-    end
-
-    if my_name == nil or my_name == '' then
-        minetest.after(1, set_my_name)
     end
 end)
 
