@@ -30,6 +30,7 @@ local function safe(func)
     return f
 end
 
+local set_my_name_tries = 0
 local set_my_name = safe(function()
     if minetest.localplayer then
         my_name = minetest.localplayer:get_name()
