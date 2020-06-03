@@ -3,7 +3,7 @@ minetest CSM which records sent and received messages in the minetest log file.
 requirements
 ------------
 
-tested with minetest 0.4.17 and 5.0.
+tested with minetest 0.4.17 and 5.0 through 5.3-dev-ee831ed6e.
 
 only basic CSM need be enabled in 5.0, which is the default.
 

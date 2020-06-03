@@ -31,19 +31,17 @@ local function safe(func)
 end
 
 local set_my_name_tries = 0
-local set_my_name = safe(function()
+local function set_my_name()
     if minetest.localplayer then
         my_name = minetest.localplayer:get_name()
-    end
-
-    if set_my_name_tries < 20 then
+    elseif set_my_name_tries < 20 then
         set_my_name_tries = set_my_name_tries + 1
+        minetest.after(1, set_my_name)
     else
         my_name = ''
         log('warning', 'could not set name!')
-        return
     end
-end)
+end
 
 
 if minetest.register_on_connect then
