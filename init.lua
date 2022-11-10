@@ -34,6 +34,7 @@ local set_my_name_tries = 0
 local function set_my_name()
     if minetest.localplayer then
         my_name = minetest.localplayer:get_name()
+        log('action', 'name set: ' .. my_name)
     elseif set_my_name_tries < 20 then
         set_my_name_tries = set_my_name_tries + 1
         minetest.after(1, set_my_name)
